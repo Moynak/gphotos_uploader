@@ -49,12 +49,18 @@ def move_child(curr_dir):
             if(isfile(join(sub_dir, file))):
                 shutil.move(join(sub_dir, file), curr_dir)
     
+def strips(curr_dir):
+    for file in os.listdir(curr_dir):
+        if isfile(join(curr_dir, file)):
+            new_file = file.lstrip("0")
+            os.rename(join(curr_dir, file), join(curr_dir, new_file))
 
 
 parent_dir = "xyz"
 
 for dir in os.listdir(parent_dir):
     if(isdir(join(parent_dir, dir))):
-        sub_dir = join(parent_dir, dir)
-        modify_child(sub_dir)
-        move_child(sub_dir)
+        dir = join(parent_dir, dir)
+        modify_child(dir)
+        move_child(dir)
+        strips(dir)
