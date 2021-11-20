@@ -60,8 +60,16 @@ for directory in os.listdir(parent_dir):
 	tokens = []
 	names = []
 	dir_path = os.path.join(parent_dir, directory)
+	# to get sorted files
+	file_list = []
 	for filename in os.listdir(dir_path):
+		if os.path.isfile(os.path.join(dir_path, filename)):
+			# print(filename + " prev")
+			file_list.append(filename)
+	file_list.sort(key=lambda f: int("".join(filter(str.isdigit, f))))
+	for filename in file_list:
 		image_path = os.path.join(dir_path, filename)
+		# print(filename)
 		response_img = upload_image(image_path, os.path.basename(image_path), token)
 		if response_img.ok: 
 			tokens.append(response_img.content.decode('utf-8'))
